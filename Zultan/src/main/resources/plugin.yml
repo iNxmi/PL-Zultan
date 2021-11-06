@@ -1,0 +1,10 @@
+name: '${project.name}'
+version: '${project.version}'
+main: com.nami.plugin.Plugin
+author: Nami
+
+api-version: 1.17
+
+commands:
+    modules:
+    coords:
