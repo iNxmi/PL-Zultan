@@ -2,12 +2,12 @@ package com.nami.plugin.modules.coords;
 
 import com.nami.api.cmd.APICommand;
 import com.nami.api.cmd.SenderScope;
-import com.nami.api.sys.APIPlugin;
+import com.nami.api.sys.APIModule;
 
 public class CMD_coords extends APICommand {
 
-	public CMD_coords(APIPlugin plugin) {
-		super(plugin, "coords");
+	public CMD_coords(APIModule module) {
+		super(module, "coords");
 	}
 
 	@Override

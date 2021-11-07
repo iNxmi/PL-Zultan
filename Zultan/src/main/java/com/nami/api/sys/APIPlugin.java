@@ -1,67 +1,71 @@
 package com.nami.api.sys;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.nami.api.base.MDL_base;
 import com.nami.api.util.DataContainer;
 import com.nami.api.util.Logger;
-import com.nami.api.util.MessageType;
 
 public abstract class APIPlugin extends JavaPlugin {
 
 	private String name;
 	private File folder;
-	private DataContainer<String, Boolean> activation;
-	private Map<String, APIModule> modules;
+	private DataContainer<String, Boolean> activeModules;
+	private List<APIModule> modules;
 
 	public static Logger logger;
 
-	public APIPlugin(String name, int modules) {
+	public APIPlugin(String name) {
 		this.name = name;
 		this.folder = getDataFolder();
-		this.activation = new DataContainer<String, Boolean>(folder.getAbsolutePath().concat("/modules.json"));
-		this.modules = new HashMap<String, APIModule>();
+		this.activeModules = new DataContainer<String, Boolean>(folder.getAbsolutePath().concat("/modules.json"));
+		this.modules = new ArrayList<APIModule>();
 
 		logger = new Logger(name);
 
 		addModule(new MDL_base(this));
-
-		init();
 	}
-
-	public abstract void init();
 
 	@Override
 	public void onEnable() {
-		// TODO make config shit work
-		loadModules(activation.getData());
+		loadModules();
+		
+		try {
+			activeModules.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private void loadModules(Map<String, Boolean> map) {
-		modules.get("base").load(this);
-
-		for (Map.Entry<String, Boolean> en : map.entrySet())
-			if (en.getValue()) {
-				modules.get(en.getKey().toLowerCase()).load(this);
-
-				logger.send(MessageType.INFO, Bukkit.getConsoleSender(), "Loaded Module: " + en.getKey());
-			}
+	@Override
+	public void onDisable() {
+		try {
+			activeModules.save();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public DataContainer<String, Boolean> getActivation() {
-		return activation;
+	public void loadModules() {
+		for (APIModule m : modules)
+			m.load();
+	}
+
+	public DataContainer<String, Boolean> getActiveModules() {
+		return activeModules;
 	}
 
 	public void addModule(APIModule module) {
-		modules.put(module.getName().toLowerCase(), module);
+		activeModules.getData().put(module.getName(), false);
+		modules.add(module);
 	}
 
-	public Map<String, APIModule> getModules() {
+	public List<APIModule> getModules() {
 		return modules;
 	}
 

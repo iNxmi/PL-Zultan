@@ -45,7 +45,7 @@ public class DataContainer<K, V> {
 
 	public void save() throws IOException {
 		if (!file.exists())
-			file.mkdirs();
+			file.createNewFile();
 
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 

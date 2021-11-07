@@ -8,6 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
+import com.nami.api.cmd.response.Response;
+import com.nami.api.sys.APIModule;
 import com.nami.api.sys.APIPlugin;
 import com.nami.api.util.MessageType;
 import com.nami.plugin.Plugin;
@@ -16,12 +18,12 @@ public abstract class APICommand implements CommandExecutor {
 
 	public static final String PLACEHOLDER = "%";
 
-	private APIPlugin plugin;
+	private APIModule module;
 	private String name;
 	private List<CommandCase> cases;
 
-	public APICommand(APIPlugin plugin, String name) {
-		this.plugin = plugin;
+	public APICommand(APIModule module, String name) {
+		this.module = module;
 		this.name = name;
 		this.cases = new ArrayList<CommandCase>();
 
@@ -38,71 +40,32 @@ public abstract class APICommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
 			@NotNull String[] args) {
+		APIPlugin plugin = module.getPlugin();
 
-		ResponseCode code = ResponseCode.NONE;
+		if (plugin.getActiveModules().getData().get(module.getName()) || module.isForceEnabled()) {
+			Response code = Response.NONE;
 
-		if (command.getName().equalsIgnoreCase(name))
-			for (CommandCase cc : cases) {
-				code = cc.execute(plugin, sender, command, label, args);
-				if (code == ResponseCode.SUCCESS)
-					break;
-			}
+			if (command.getName().equalsIgnoreCase(name))
+				for (CommandCase cc : cases) {
+					code = cc.execute(plugin, sender, command, label, args);
+					if (code != Response.NONE)
+						break;
+				}
 
-		if (code == ResponseCode.NONE)
-			code = ResponseCode.SYNTAX_ERROR;
+			if (code == Response.NONE)
+				code = Response.SYNTAX_ERROR;
 
-		return parseResponseCode(code, sender);
-	}
-
-	private boolean parseResponseCode(ResponseCode code, CommandSender sender) {
-		switch (code) {
-		case SUCCESS:
-			return true;
-
-		case SYNTAX_ERROR:
-			Plugin.logger.send(MessageType.ERROR, sender, "no command with this syntax u moron");
-			return false;
-
-		case NO_PERM:
-			Plugin.logger.send(MessageType.ERROR, sender, "no permissions bitch");
-			return false;
-
-		case NOT_PLAYER:
-			Plugin.logger.send(MessageType.ERROR, sender, "u not a player little bastard");
-			return false;
-
-		case NOT_CONSOLE:
-			Plugin.logger.send(MessageType.ERROR, sender, "this command has to be run by console u cunt");
-			return false;
-
-		case TARGET_NOT_EXIST:
-			Plugin.logger.send(MessageType.ERROR, sender, "ur target not existing");
-			return false;
-
-		case TARGET_NOT_ONLINE:
-			Plugin.logger.send(MessageType.ERROR, sender, "ur target cant be located fat boy");
-			return false;
-
-		case TARGET_NOT_PLAYER:
-			Plugin.logger.send(MessageType.ERROR, sender, "u cant be target");
-			return false;
-
-		case INTERNAL_ERROR:
-			Plugin.logger.send(MessageType.ERROR, sender, "hmm weird an internal error :|");
-			return false;
-
-		case NONE:
-			return false;
-
-		default:
-			Plugin.logger.send(MessageType.WARNING, sender,
-					"lol if u see this message you just found a bug :) i dont fucking know how but u did");
-			return false;
+			if (code != Response.SUCCESS)
+				Plugin.logger.send(code.getMessageType(), sender, code.getMessage());
+		} else {
+			Plugin.logger.send(MessageType.ERROR, sender, "Module '" + module.getName() + "' is not enabled!");
 		}
+
+		return true;
 	}
 
-	public APIPlugin getPlugin() {
-		return plugin;
+	public APIModule getModule() {
+		return module;
 	}
 
 	public String getName() {

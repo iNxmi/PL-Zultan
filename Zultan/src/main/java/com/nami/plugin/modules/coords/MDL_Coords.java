@@ -6,12 +6,12 @@ import com.nami.api.sys.APIPlugin;
 public class MDL_Coords extends APIModule {
 
 	public MDL_Coords(APIPlugin plugin) {
-		super(plugin, "Coords");
+		super(plugin, "coords", false);
 	}
 
 	@Override
 	public void onInit() {
-		addCommand(new CMD_coords(getPlugin()));
+		addCommand(new CMD_coords(this));
 	}
 
 }

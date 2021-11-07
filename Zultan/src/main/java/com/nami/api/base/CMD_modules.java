@@ -2,18 +2,19 @@ package com.nami.api.base;
 
 import com.nami.api.cmd.APICommand;
 import com.nami.api.cmd.SenderScope;
-import com.nami.api.sys.APIPlugin;
+import com.nami.api.sys.APIModule;
 
 public class CMD_modules extends APICommand {
 
-	public CMD_modules(APIPlugin plugin) {
-		super(plugin, "modules");
+	public CMD_modules(APIModule module) {
+		super(module, "modules");
 	}
 
 	@Override
 	public void init() {
-		addCase(new RUN_List(), "list", getPlugin().getName().concat(".base.modules.list"), SenderScope.BOTH);
-		addCase(new RUN_List(), "toggle %", getPlugin().getName().concat(".base.modules.toggle"), SenderScope.BOTH);
+		addCase(new RUN_List(), "list", "zultan.base.modules.list", SenderScope.BOTH);
+		addCase(new RUN_Toggle(), "toggle %", "zultan.base.modules.toggle", SenderScope.BOTH);
+		addCase(new RUN_Reload(), "reload", "zultan.base.modules.reload", SenderScope.BOTH);
 	}
 
 }

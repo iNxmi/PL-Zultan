@@ -16,27 +16,28 @@ public abstract class APIModule {
 	private List<APICommand> commands;
 	private List<APIEvent> events;
 	private DataContainer<String, String> config;
-	private boolean loaded;
+	private boolean forceEnabled;
 
-	public APIModule(APIPlugin plugin, String name) {
+	public APIModule(APIPlugin plugin, String name, boolean forceEnabled) {
 		try {
-			preInit(plugin, name, false);
+			preInit(plugin, name, forceEnabled, false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public APIModule(APIPlugin plugin, String name, boolean config) {
+	public APIModule(APIPlugin plugin, String name, boolean forceEnabled, boolean config) {
 		try {
-			preInit(plugin, name, config);
+			preInit(plugin, name, forceEnabled, config);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void preInit(APIPlugin plugin, String name, boolean config) throws IOException {
+	private void preInit(APIPlugin plugin, String name, boolean forceEnabled, boolean config) throws IOException {
 		this.plugin = plugin;
 		this.name = name;
+		this.forceEnabled = forceEnabled;
 		this.commands = new ArrayList<>();
 		this.events = new ArrayList<>();
 
@@ -65,11 +66,9 @@ public abstract class APIModule {
 		events.add(event);
 	}
 
-	public void load(APIPlugin plugin) {
+	public void load() {
 		loadCommands(plugin);
 		loadEvents(plugin);
-
-		loaded = true;
 	}
 
 	public void loadCommands(APIPlugin plugin) {
@@ -78,7 +77,7 @@ public abstract class APIModule {
 	}
 
 	public void loadEvents(APIPlugin plugin) {
-		//TODO make events work
+		// TODO make events work
 //		for (APIEvent event : events)
 //			plugin.getServer().getPluginManager().registerEvent(event);
 	}
@@ -91,8 +90,8 @@ public abstract class APIModule {
 		return events;
 	}
 
-	public boolean isLoaded() {
-		return loaded;
+	public boolean isForceEnabled() {
+		return forceEnabled;
 	}
 
 	public String getName() {
