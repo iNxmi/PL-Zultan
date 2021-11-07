@@ -2,6 +2,7 @@ package com.nami.plugin.modules.coords;
 
 import com.nami.api.sys.APIModule;
 import com.nami.api.sys.APIPlugin;
+import com.nami.plugin.modules.coords.cmd.CMD_coords;
 
 public class MDL_Coords extends APIModule {
 

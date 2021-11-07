@@ -1,4 +1,4 @@
-package com.nami.plugin.modules.coords;
+package com.nami.plugin.modules.coords.cmd.run.add;
 
 import java.io.IOException;
 import java.util.HashMap;

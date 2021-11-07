@@ -1,4 +1,4 @@
-package com.nami.plugin.modules.coords;
+package com.nami.plugin.modules.coords.cmd.run.publish;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

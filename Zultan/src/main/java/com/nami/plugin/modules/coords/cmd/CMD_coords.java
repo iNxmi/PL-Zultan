@@ -1,4 +1,4 @@
-package com.nami.plugin.modules.coords;
+package com.nami.plugin.modules.coords.cmd;
 
 import java.io.IOException;
 import java.util.Map;
@@ -7,8 +7,17 @@ import com.nami.api.cmd.APICommand;
 import com.nami.api.cmd.SenderScope;
 import com.nami.api.sys.APIModule;
 import com.nami.api.util.DataContainer;
-import com.nami.plugin.modules.coords.cmd.coords.tp.RUN_Tp_Other;
-import com.nami.plugin.modules.coords.cmd.coords.tp.RUN_Tp_Self;
+import com.nami.plugin.modules.coords.cmd.run.RUN_Clear;
+import com.nami.plugin.modules.coords.cmd.run.RUN_List;
+import com.nami.plugin.modules.coords.cmd.run.RUN_Remove;
+import com.nami.plugin.modules.coords.cmd.run.add.RUN_Add;
+import com.nami.plugin.modules.coords.cmd.run.add.RUN_Add_XYZD;
+import com.nami.plugin.modules.coords.cmd.run.get.RUN_Get_Other;
+import com.nami.plugin.modules.coords.cmd.run.get.RUN_Get_Self;
+import com.nami.plugin.modules.coords.cmd.run.publish.RUN_Publish_Other;
+import com.nami.plugin.modules.coords.cmd.run.publish.RUN_Publish_Self;
+import com.nami.plugin.modules.coords.cmd.run.tp.RUN_Tp_Other;
+import com.nami.plugin.modules.coords.cmd.run.tp.RUN_Tp_Self;
 
 public class CMD_coords extends APICommand {
 
