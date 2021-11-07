@@ -2,9 +2,9 @@ package com.nami.api.cmd.response;
 
 import com.nami.api.util.MessageType;
 
-public class ResponseDebug extends Response {
+public class DebugResponse extends Response {
 
-	public ResponseDebug(String message) {
+	public DebugResponse(String message) {
 		super(message, MessageType.DEBUG);
 	}
 

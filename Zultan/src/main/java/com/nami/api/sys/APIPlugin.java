@@ -28,13 +28,13 @@ public abstract class APIPlugin extends JavaPlugin {
 
 		logger = new Logger(name);
 
-		addModule(new MDL_base(this));
+		addModule(new MDL_base(this), true);
 	}
 
 	@Override
 	public void onEnable() {
 		loadModules();
-		
+
 		try {
 			activeModules.load();
 		} catch (IOException e) {
@@ -60,8 +60,8 @@ public abstract class APIPlugin extends JavaPlugin {
 		return activeModules;
 	}
 
-	public void addModule(APIModule module) {
-		activeModules.getData().put(module.getName(), false);
+	public void addModule(APIModule module, boolean enabled) {
+		activeModules.getData().put(module.getName(), enabled);
 		modules.add(module);
 	}
 

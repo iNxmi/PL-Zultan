@@ -4,14 +4,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import com.nami.api.cmd.CommandRunnable;
+import com.nami.api.cmd.APICommandExecutor;
 import com.nami.api.cmd.response.Response;
 import com.nami.api.sys.APIModule;
 import com.nami.api.sys.APIPlugin;
 import com.nami.api.util.MessageType;
 import com.nami.plugin.Plugin;
 
-public class RUN_List implements CommandRunnable {
+public class RUN_List implements APICommandExecutor {
 
 	@Override
 	public Response onCommand(APIPlugin plugin, @NotNull CommandSender sender, @NotNull Command command,

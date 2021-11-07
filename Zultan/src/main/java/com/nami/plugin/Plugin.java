@@ -5,12 +5,12 @@ import com.nami.plugin.modules.coords.MDL_Coords;
 
 public class Plugin extends APIPlugin {
 
-	//next 003
-	
+	// next 004
+
 	public Plugin() {
 		super("Zultan");
-		
-		addModule(new MDL_Coords(this));
+
+		addModule(new MDL_Coords(this), false);
 	}
 
 }

@@ -2,9 +2,9 @@ package com.nami.api.cmd.response;
 
 import com.nami.api.util.MessageType;
 
-public class ResponseWarning extends Response {
+public class WarningResponse extends Response {
 
-	public ResponseWarning(String message) {
+	public WarningResponse(String message) {
 		super(message, MessageType.WARNING);
 	}
 

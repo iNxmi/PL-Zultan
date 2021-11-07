@@ -2,9 +2,9 @@ package com.nami.api.cmd.response;
 
 import com.nami.api.util.MessageType;
 
-public class ResponseError extends Response {
+public class ErrorResponse extends Response {
 
-	public ResponseError(String message) {
+	public ErrorResponse(String message) {
 		super(message, MessageType.ERROR);
 	}
 

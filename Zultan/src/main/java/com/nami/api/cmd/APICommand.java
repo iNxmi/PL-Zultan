@@ -16,7 +16,10 @@ import com.nami.plugin.Plugin;
 
 public abstract class APICommand implements CommandExecutor {
 
-	public static final String PLACEHOLDER = "%";
+	public static final List<String> placeholders = new ArrayList<>();
+	public static final String PLACEHOLDER_STRING = "%string";
+	public static final String PLACEHOLDER_NUMBER = "%number";
+	public static final String PLACEHOLDER_PLAYER = "%player";
 
 	private APIModule module;
 	private String name;
@@ -26,9 +29,13 @@ public abstract class APICommand implements CommandExecutor {
 		this.module = module;
 		this.name = name;
 		this.cases = new ArrayList<CommandCase>();
+
+		placeholders.add(PLACEHOLDER_STRING);
+		placeholders.add(PLACEHOLDER_NUMBER);
+		placeholders.add(PLACEHOLDER_PLAYER);
 	}
 
-	public void addCase(CommandRunnable runnable, String args, String permission, SenderScope scope) {
+	public void addCase(APICommandExecutor runnable, String args, String permission, SenderScope scope) {
 		String[] list = (args.isEmpty() ? new String[0] : args.trim().split(" "));
 		cases.add(new CommandCase(runnable, list, permission, scope));
 	}
