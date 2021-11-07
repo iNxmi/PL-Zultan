@@ -1,6 +1,4 @@
-package com.nami.api.base;
-
-import java.io.IOException;
+package com.nami.api.modules.base;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -16,12 +14,7 @@ public class RUN_Reload implements CommandRunnable {
 	public Response onCommand(APIPlugin plugin, @NotNull CommandSender sender, @NotNull Command command,
 			@NotNull String label, @NotNull String[] args) {
 
-		try {
-			plugin.getActiveModules().load();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return Response.INTERNAL_ERROR;
-		}
+		//TODO make it work!
 
 		return Response.SUCCESS;
 	}

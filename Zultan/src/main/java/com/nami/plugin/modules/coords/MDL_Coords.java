@@ -7,10 +7,7 @@ public class MDL_Coords extends APIModule {
 
 	public MDL_Coords(APIPlugin plugin) {
 		super(plugin, "coords", false);
-	}
-
-	@Override
-	public void onInit() {
+		
 		addCommand(new CMD_coords(this));
 	}
 

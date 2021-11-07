@@ -8,12 +8,12 @@ public class CMD_coords extends APICommand {
 
 	public CMD_coords(APIModule module) {
 		super(module, "coords");
-	}
-
-	@Override
-	public void init() {
+		
 		addCase(new RUN_Get_Self(), "get", "zultan.coords.get.self", SenderScope.PLAYER);
 		addCase(new RUN_Get_Other(), "get %", "zultan.coords.get.other", SenderScope.BOTH);
+		
+		addCase(new RUN_Publish_Self(), "publish", "zultan.coords.publish.self", SenderScope.PLAYER);
+		addCase(new RUN_Publish_Other(), "publish %", "zultan.coords.publish.other", SenderScope.BOTH);
 	}
 
 }

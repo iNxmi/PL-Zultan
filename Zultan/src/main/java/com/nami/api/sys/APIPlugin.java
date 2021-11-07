@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.nami.api.base.MDL_base;
+import com.nami.api.modules.base.MDL_base;
 import com.nami.api.util.DataContainer;
 import com.nami.api.util.Logger;
 

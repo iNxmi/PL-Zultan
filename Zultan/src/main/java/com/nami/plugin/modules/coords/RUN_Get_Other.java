@@ -1,6 +1,7 @@
 package com.nami.plugin.modules.coords;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,10 +27,9 @@ public class RUN_Get_Other implements CommandRunnable {
 		if (t == sender)
 			return Response.TARGET_NOT_PLAYER;
 
-		Plugin.logger.send(MessageType.NONE, sender,
-				"Position from " + t.getName() + " is §4X: " + t.getLocation().getBlockX() + " §aY: "
-						+ t.getLocation().getBlockY() + " §9Z: " + t.getLocation().getBlockZ() + " §rDim: "
-						+ t.getWorld().getEnvironment());
+		Location loc = t.getLocation();
+		Plugin.logger.send(MessageType.NONE, sender, t.getName() + "'s location is §4X: " + loc.getBlockX() + " §aY: "
+				+ loc.getBlockY() + " §9Z: " + loc.getBlockZ() + " §rDim: " + loc.getWorld().getEnvironment().name());
 
 		return Response.SUCCESS;
 	}

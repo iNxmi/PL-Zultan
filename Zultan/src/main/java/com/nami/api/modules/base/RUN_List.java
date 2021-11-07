@@ -1,4 +1,4 @@
-package com.nami.api.base;
+package com.nami.api.modules.base;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

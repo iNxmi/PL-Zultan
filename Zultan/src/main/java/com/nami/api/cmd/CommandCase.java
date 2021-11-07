@@ -28,7 +28,7 @@ public class CommandCase {
 
 		for (int i = 0; i < args.length; i++)
 			if (!(this.args[i].equalsIgnoreCase(args[i]) || this.args[i].equalsIgnoreCase("%")))
-				return Response.SYNTAX_ERROR;
+				return Response.NONE;
 
 		if (sender instanceof Player && scope == SenderScope.CONSOLE && scope != SenderScope.BOTH)
 			return Response.NOT_CONSOLE;

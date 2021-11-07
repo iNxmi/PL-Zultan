@@ -52,11 +52,7 @@ public abstract class APIModule {
 				file.mkdirs();
 			}
 		}
-
-		onInit();
 	}
-
-	public abstract void onInit();
 
 	public void addCommand(APICommand command) {
 		commands.add(command);

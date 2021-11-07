@@ -26,11 +26,7 @@ public abstract class APICommand implements CommandExecutor {
 		this.module = module;
 		this.name = name;
 		this.cases = new ArrayList<CommandCase>();
-
-		init();
 	}
-
-	public abstract void init();
 
 	public void addCase(CommandRunnable runnable, String args, String permission, SenderScope scope) {
 		String[] list = (args.isEmpty() ? new String[0] : args.trim().split(" "));

@@ -1,6 +1,8 @@
 package com.nami.api.util;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class Logger {
 
@@ -16,6 +18,11 @@ public class Logger {
 
 	public void send(MessageType type, CommandSender sender, Object message) {
 		sender.sendMessage(getCookedMessage(type, message));
+	}
+
+	public void broadcast(MessageType type, Object message) {
+		for (Player p : Bukkit.getOnlinePlayers())
+			p.sendMessage(getCookedMessage(type, message));
 	}
 
 }
