@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.nami.api.modules.base.MDL_base;
 import com.nami.api.util.DataContainer;
 import com.nami.api.util.Logger;
+import com.nami.api.util.MessageType;
 
 public abstract class APIPlugin extends JavaPlugin {
 
@@ -38,7 +40,8 @@ public abstract class APIPlugin extends JavaPlugin {
 		try {
 			activeModules.load();
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			logger.send(MessageType.ERROR, Bukkit.getConsoleSender(), "Couldn't load modules.json");
 		}
 	}
 
@@ -47,7 +50,8 @@ public abstract class APIPlugin extends JavaPlugin {
 		try {
 			activeModules.save();
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			logger.send(MessageType.ERROR, Bukkit.getConsoleSender(), "Couldn't save modules.json");
 		}
 	}
 

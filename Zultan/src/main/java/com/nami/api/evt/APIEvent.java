@@ -2,20 +2,18 @@ package com.nami.api.evt;
 
 import org.bukkit.event.Listener;
 
-import com.nami.api.sys.APIPlugin;
+import com.nami.api.sys.APIModule;
 
 public class APIEvent implements Listener {
 
-	//TODO make this shit work
-	
-	private APIPlugin plugin;
+	private APIModule module;
 
-	public APIEvent(APIPlugin plugin) {
-		this.plugin = plugin;
+	public APIEvent(APIModule module) {
+		this.module = module;
 	}
 
-	public APIPlugin getPlugin() {
-		return plugin;
+	public APIModule getModule() {
+		return module;
 	}
 
 }

@@ -1,57 +1,33 @@
 package com.nami.api.sys;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.nami.api.cmd.APICommand;
 import com.nami.api.evt.APIEvent;
-import com.nami.api.util.DataContainer;
 
 public abstract class APIModule {
 
 	private APIPlugin plugin;
 	private String name;
+	private boolean forceEnabled;
+	private File folder;
+
 	private List<APICommand> commands;
 	private List<APIEvent> events;
-	private DataContainer<String, String> config;
-	private boolean forceEnabled;
 
 	public APIModule(APIPlugin plugin, String name, boolean forceEnabled) {
-		try {
-			preInit(plugin, name, forceEnabled, false);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public APIModule(APIPlugin plugin, String name, boolean forceEnabled, boolean config) {
-		try {
-			preInit(plugin, name, forceEnabled, config);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void preInit(APIPlugin plugin, String name, boolean forceEnabled, boolean config) throws IOException {
 		this.plugin = plugin;
-		this.name = name;
+		this.name = name.toLowerCase();
 		this.forceEnabled = forceEnabled;
+		this.folder = new File(plugin.getDataFolder().getAbsolutePath().concat("/").concat(name));
+
 		this.commands = new ArrayList<>();
 		this.events = new ArrayList<>();
 
-		if (config) {
-			String path = plugin.getDataFolder().getAbsolutePath().concat("/").concat(name).concat(".json");
-			File file = new File(path);
-			this.config = new DataContainer<String, String>(file);
-
-			if (file.exists()) {
-				this.config.load();
-			} else {
-				file.mkdirs();
-			}
-		}
+		if (!folder.exists())
+			folder.mkdirs();
 	}
 
 	public void addCommand(APICommand command) {
@@ -73,9 +49,12 @@ public abstract class APIModule {
 	}
 
 	public void loadEvents(APIPlugin plugin) {
-		// TODO make events work
-//		for (APIEvent event : events)
-//			plugin.getServer().getPluginManager().registerEvent(event);
+		for (APIEvent event : events)
+			plugin.getServer().getPluginManager().registerEvents(event, plugin);
+	}
+
+	public File getFolder() {
+		return folder;
 	}
 
 	public List<APICommand> getCommands() {
