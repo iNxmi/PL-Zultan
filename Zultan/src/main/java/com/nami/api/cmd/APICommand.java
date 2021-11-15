@@ -6,11 +6,9 @@ import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
 
 import com.nami.api.cmd.response.Response;
 import com.nami.api.sys.APIModule;
-import com.nami.api.sys.APIPlugin;
 import com.nami.api.util.MessageType;
 import com.nami.plugin.Plugin;
 
@@ -41,16 +39,14 @@ public abstract class APICommand implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-			@NotNull String[] args) {
-		APIPlugin plugin = module.getPlugin();
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		if (plugin.getActiveModules().getData().get(module.getName()) || module.isForceEnabled()) {
+		if (module.isEnabled()) {
 			Response code = Response.NONE;
 
 			if (command.getName().equalsIgnoreCase(name))
 				for (CommandCase cc : cases) {
-					code = cc.execute(plugin, sender, command, label, args);
+					code = cc.execute(module, sender, command, label, args);
 					if (code != Response.NONE)
 						break;
 				}
@@ -61,7 +57,7 @@ public abstract class APICommand implements CommandExecutor {
 			if (code != Response.SUCCESS)
 				Plugin.logger.send(code.getMessageType(), sender, code.getMessage());
 		} else {
-			Plugin.logger.send(MessageType.ERROR, sender, "Module '" + module.getName() + "' is not enabled!");
+			Plugin.logger.send(MessageType.ERROR, sender, "Module '" + module.getID() + "' is not enabled!");
 		}
 
 		return true;

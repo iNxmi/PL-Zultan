@@ -10,18 +10,21 @@ import com.nami.api.evt.APIEvent;
 public abstract class APIModule {
 
 	private APIPlugin plugin;
-	private String name;
+	private String id;
 	private boolean forceEnabled;
+	private boolean enabled;
+
 	private File folder;
 
 	private List<APICommand> commands;
 	private List<APIEvent> events;
 
-	public APIModule(APIPlugin plugin, String name, boolean forceEnabled) {
+	public APIModule(APIPlugin plugin, String id, boolean forceEnabled) {
 		this.plugin = plugin;
-		this.name = name.toLowerCase();
+		this.id = id.toLowerCase();
 		this.forceEnabled = forceEnabled;
-		this.folder = new File(plugin.getDataFolder().getAbsolutePath().concat("/").concat(name));
+
+		this.folder = new File(plugin.getDataFolder().getAbsolutePath().concat("/").concat(this.id));
 
 		this.commands = new ArrayList<>();
 		this.events = new ArrayList<>();
@@ -69,8 +72,16 @@ public abstract class APIModule {
 		return forceEnabled;
 	}
 
-	public String getName() {
-		return name;
+	public String getID() {
+		return id;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
 	}
 
 	public APIPlugin getPlugin() {

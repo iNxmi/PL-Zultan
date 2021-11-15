@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.bukkit.boss.BossBar;
-
 import com.nami.api.cmd.APICommand;
 import com.nami.api.cmd.SenderScope;
 import com.nami.api.sys.APIModule;

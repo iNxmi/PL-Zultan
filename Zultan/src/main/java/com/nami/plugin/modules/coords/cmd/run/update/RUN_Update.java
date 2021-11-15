@@ -8,12 +8,11 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import com.nami.api.cmd.APICommandExecutor;
 import com.nami.api.cmd.response.ErrorResponse;
 import com.nami.api.cmd.response.Response;
-import com.nami.api.sys.APIPlugin;
+import com.nami.api.sys.APIModule;
 import com.nami.api.util.DataContainer;
 import com.nami.api.util.MessageType;
 import com.nami.plugin.Plugin;
@@ -26,16 +25,16 @@ public class RUN_Update implements APICommandExecutor {
 		this.data = data;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
-	public Response onCommand(APIPlugin plugin, @NotNull CommandSender sender, @NotNull Command command,
-			@NotNull String label, @NotNull String[] args) {
-
+	public Response onCommand(APIModule module, CommandSender sender, Command command, String label, String[] args) {
 		if (!data.getData().containsKey(args[1]))
 			return new ErrorResponse("Coordinate '" + args[1] + "' des not exist!");
-		
+
 		Player p = (Player) sender;
 		Location loc = p.getLocation();
 
+		// TODO shit is deprecated
 		Map<String, Integer> rawData = new HashMap<>();
 		rawData.put("x", loc.getBlockX());
 		rawData.put("y", loc.getBlockY());

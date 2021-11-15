@@ -7,7 +7,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import com.nami.api.cmd.response.Response;
-import com.nami.api.sys.APIPlugin;
+import com.nami.api.sys.APIModule;
 
 public class CommandCase {
 
@@ -23,7 +23,7 @@ public class CommandCase {
 		this.scope = scope;
 	}
 
-	public Response execute(APIPlugin plugin, CommandSender sender, Command cmd, String label, String[] args) {
+	public Response execute(APIModule module, CommandSender sender, Command cmd, String label, String[] args) {
 		if (this.args.length != args.length)
 			return Response.NONE;
 
@@ -57,7 +57,7 @@ public class CommandCase {
 				break;
 			}
 
-		return executor.onCommand(plugin, sender, cmd, label, args);
+		return executor.onCommand(module, sender, cmd, label, args);
 	}
 
 	private boolean isNumber(String num) {

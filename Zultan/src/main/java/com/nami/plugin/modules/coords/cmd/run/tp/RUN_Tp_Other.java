@@ -7,11 +7,10 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import com.nami.api.cmd.APICommandExecutor;
 import com.nami.api.cmd.response.Response;
-import com.nami.api.sys.APIPlugin;
+import com.nami.api.sys.APIModule;
 import com.nami.api.util.DataContainer;
 import com.nami.api.util.MessageType;
 import com.nami.plugin.Plugin;
@@ -25,9 +24,7 @@ public class RUN_Tp_Other implements APICommandExecutor {
 	}
 
 	@Override
-	public Response onCommand(APIPlugin plugin, @NotNull CommandSender sender, @NotNull Command command,
-			@NotNull String label, @NotNull String[] args) {
-
+	public Response onCommand(APIModule module, CommandSender sender, Command command, String label, String[] args) {
 		Map<String, Integer> rawData = data.getData().get(args[1]);
 
 		Player t = Bukkit.getPlayer(args[2]);

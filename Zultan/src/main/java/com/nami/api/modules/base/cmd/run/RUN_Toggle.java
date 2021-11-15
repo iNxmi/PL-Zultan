@@ -1,14 +1,12 @@
 package com.nami.api.modules.base.cmd.run;
 
-import java.io.IOException;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
 
 import com.nami.api.cmd.APICommandExecutor;
 import com.nami.api.cmd.response.ErrorResponse;
 import com.nami.api.cmd.response.Response;
+import com.nami.api.sys.APIModule;
 import com.nami.api.sys.APIPlugin;
 import com.nami.api.util.MessageType;
 import com.nami.plugin.Plugin;
@@ -16,24 +14,18 @@ import com.nami.plugin.Plugin;
 public class RUN_Toggle implements APICommandExecutor {
 
 	@Override
-	public Response onCommand(APIPlugin plugin, @NotNull CommandSender sender, @NotNull Command command,
-			@NotNull String label, @NotNull String[] args) {
+	public Response onCommand(APIModule module, CommandSender sender, Command command, String label, String[] args) {
+		APIPlugin plugin = module.getPlugin();
+		String moduleId = args[1].toLowerCase();
 
-		if (!plugin.getActiveModules().getData().containsKey(args[1]))
-			return new ErrorResponse("Module '" + args[1] + "' does not exist!");
+		if (!plugin.getModules().containsKey(moduleId))
+			return new ErrorResponse("Module '" + moduleId + "' does not exist!");
 
-		boolean old = plugin.getActiveModules().getData().get(args[1]);
-		plugin.getActiveModules().getData().remove(args[1]);
-		plugin.getActiveModules().getData().put(args[1], !old);
+		APIModule selectedModule = plugin.getModules().get(moduleId);
+		boolean old = selectedModule.isEnabled();
+		selectedModule.setEnabled(!old);
 
-		try {
-			plugin.getActiveModules().save();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return Response.INTERNAL_ERROR;
-		}
-
-		Plugin.logger.send(MessageType.NONE, sender, "Module '" + args[1] + "' has been set to " + !old + "!");
+		Plugin.logger.send(MessageType.NONE, sender, "Module '" + moduleId + "' has been set to " + !old + "!");
 
 		return Response.SUCCESS;
 	}

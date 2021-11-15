@@ -5,11 +5,11 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import com.nami.api.cmd.response.Response;
-import com.nami.api.sys.APIPlugin;
+import com.nami.api.sys.APIModule;
 
 public interface APICommandExecutor {
 
-	public Response onCommand(APIPlugin plugin, @NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+	public Response onCommand(APIModule module, @NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
 			@NotNull String[] args);
 
 }

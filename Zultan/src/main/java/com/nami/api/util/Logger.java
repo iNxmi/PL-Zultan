@@ -41,5 +41,4 @@ public class Logger {
 		for (Player p : Bukkit.getOnlinePlayers())
 			sendHotbar(p, getCookedMessage(message));
 	}
-
 }
