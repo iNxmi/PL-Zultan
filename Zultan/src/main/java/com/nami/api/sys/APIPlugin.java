@@ -27,17 +27,24 @@ public abstract class APIPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		loadModules();
-		// TODO load enabled modules from json
+
+		enableModules();
 	}
 
 	@Override
 	public void onDisable() {
-		// TODO save enabled modules from json
+
 	}
 
-	public void loadModules() {
+	private void loadModules() {
 		for (APIModule m : modules.values())
 			m.load();
+	}
+
+	// TODO Make shit work right
+	private void enableModules() {
+		for (APIModule m : modules.values())
+			m.setEnabled(true);
 	}
 
 	public void addModule(APIModule module) {

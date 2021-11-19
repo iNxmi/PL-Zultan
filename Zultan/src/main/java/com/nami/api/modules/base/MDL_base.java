@@ -7,8 +7,8 @@ import com.nami.api.sys.APIPlugin;
 public class MDL_base extends APIModule {
 
 	public MDL_base(APIPlugin plugin) {
-		super(plugin, "base", true);
-		
+		super(plugin, "base");
+
 		addCommand(new CMD_modules(this));
 	}
 

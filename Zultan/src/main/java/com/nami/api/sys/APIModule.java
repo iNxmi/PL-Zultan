@@ -11,7 +11,6 @@ public abstract class APIModule {
 
 	private APIPlugin plugin;
 	private String id;
-	private boolean forceEnabled;
 	private boolean enabled;
 
 	private File folder;
@@ -19,10 +18,9 @@ public abstract class APIModule {
 	private List<APICommand> commands;
 	private List<APIEvent> events;
 
-	public APIModule(APIPlugin plugin, String id, boolean forceEnabled) {
+	public APIModule(APIPlugin plugin, String id) {
 		this.plugin = plugin;
 		this.id = id.toLowerCase();
-		this.forceEnabled = forceEnabled;
 
 		this.folder = new File(plugin.getDataFolder().getAbsolutePath().concat("/").concat(this.id));
 
@@ -66,10 +64,6 @@ public abstract class APIModule {
 
 	public List<APIEvent> getEvents() {
 		return events;
-	}
-
-	public boolean isForceEnabled() {
-		return forceEnabled;
 	}
 
 	public String getID() {

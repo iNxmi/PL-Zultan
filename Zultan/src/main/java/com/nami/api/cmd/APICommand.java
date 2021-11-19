@@ -40,7 +40,6 @@ public abstract class APICommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
 		if (module.isEnabled()) {
 			Response code = Response.NONE;
 
@@ -59,7 +58,6 @@ public abstract class APICommand implements CommandExecutor {
 		} else {
 			Plugin.logger.send(MessageType.ERROR, sender, "Module '" + module.getID() + "' is not enabled!");
 		}
-
 		return true;
 	}
 

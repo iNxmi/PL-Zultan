@@ -1,10 +1,11 @@
 name: '${project.name}'
 version: '${project.version}'
-main: com.nami.plugin.Plugin
 author: Nami
+main: com.nami.plugin.Plugin
 
 api-version: 1.17
 
 commands:
     modules:
     coords:
+    gamemode:
