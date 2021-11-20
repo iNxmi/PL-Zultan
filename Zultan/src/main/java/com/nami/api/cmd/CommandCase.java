@@ -1,11 +1,19 @@
 package com.nami.api.cmd;
 
-import org.bukkit.Bukkit;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+import com.nami.api.cmd.check.Check;
+import com.nami.api.cmd.check.CheckResponse;
+import com.nami.api.cmd.check.DoubleCheck;
+import com.nami.api.cmd.check.LongCheck;
+import com.nami.api.cmd.check.PlayerCheck;
+import com.nami.api.cmd.check.StringCheck;
 import com.nami.api.cmd.response.Response;
 import com.nami.api.sys.APIModule;
 
@@ -28,7 +36,7 @@ public class CommandCase {
 			return Response.NONE;
 
 		for (int i = 0; i < args.length; i++)
-			if (!(this.args[i].equalsIgnoreCase(args[i]) || APICommand.placeholders.contains(this.args[i])))
+			if (!(this.args[i].equalsIgnoreCase(args[i]) || Argument.getLookup().containsKey(this.args[i])))
 				return Response.NONE;
 
 		if (sender instanceof Player && scope == SenderScope.CONSOLE && scope != SenderScope.BOTH)
@@ -41,32 +49,50 @@ public class CommandCase {
 			return Response.NO_PERM;
 
 		for (int i = 0; i < args.length; i++)
-			switch (this.args[i]) {
-			case APICommand.PLACEHOLDER_NUMBER:
-				if (!isNumber(args[i]))
-					return Response.NOT_NUMBER;
-				break;
-			case APICommand.PLACEHOLDER_PLAYER:
-				Player p = Bukkit.getPlayerExact(args[i]);
-				if (p == null)
-					return Response.TARGET_NOT_EXIST;
-				if (!p.isOnline())
-					return Response.TARGET_NOT_ONLINE;
-				if (p == sender)
-					return Response.TARGET_NOT_PLAYER;
-				break;
+			if (Argument.getLookup().containsKey(this.args[i])) {
+				Argument arg = Argument.getArgument(this.args[i]);
+				CheckResponse response = arg.check(module, sender, cmd, label, args[i]);
+				if (response.shouldReturn())
+					return response.getResponse();
 			}
 
 		return executor.onCommand(module, sender, cmd, label, args);
 	}
 
-	private boolean isNumber(String num) {
-		try {
-			Double.parseDouble(num);
-		} catch (NumberFormatException e) {
-			return false;
+	public enum Argument {
+		STRING("%string", new StringCheck()), LONG("%long", new LongCheck()), DOUBLE("%double", new DoubleCheck()),
+		PLAYER("%player", new PlayerCheck());
+
+		private String prefix;
+		private Check check;
+		private static final Map<String, Argument> lookup = new HashMap<String, Argument>();
+
+		Argument(String prefix, Check check) {
+			this.prefix = prefix;
+			this.check = check;
 		}
-		return true;
+
+		public String getPrefix() {
+			return prefix;
+		}
+
+		public CheckResponse check(APIModule module, CommandSender sender, Command cmd, String label, String arg) {
+			return check.check(module, sender, cmd, label, arg);
+		}
+
+		public static Argument getArgument(String prefix) {
+			return lookup.get(prefix);
+		}
+
+		public static Map<String, Argument> getLookup() {
+			return lookup;
+		}
+
+		static {
+			for (Argument a : values())
+				lookup.put(a.getPrefix(), a);
+		}
+
 	}
 
 }

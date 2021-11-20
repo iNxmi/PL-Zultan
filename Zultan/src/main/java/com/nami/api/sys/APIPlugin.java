@@ -22,6 +22,8 @@ public abstract class APIPlugin extends JavaPlugin {
 		logger = new Logger(name);
 
 		addModule(new MDL_base(this));
+
+		getDescription().getVersion();
 	}
 
 	@Override

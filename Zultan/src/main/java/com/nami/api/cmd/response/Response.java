@@ -15,7 +15,8 @@ public abstract class Response {
 	public static final Response TARGET_NOT_ONLINE = new ErrorResponse("This player is not online!");
 	public static final Response TARGET_NOT_PLAYER = new ErrorResponse("You cant target yourself!");
 	public static final Response INTERNAL_ERROR = new ErrorResponse("An internal error occurred!");
-	public static final Response NOT_NUMBER = new ErrorResponse("You have to enter a number!");
+	public static final Response NOT_LONG = new ErrorResponse("You have to enter a long!");
+	public static final Response NOT_DOUBLE = new ErrorResponse("You have to enter a double!");
 
 	private String message;
 	private MessageType type;
