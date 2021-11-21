@@ -1,7 +1,7 @@
 package com.nami.api.modules.base.cmd;
 
 import com.nami.api.cmd.APICommand;
-import com.nami.api.cmd.SenderScope;
+import com.nami.api.cmd.CommandCase.SenderScope;
 import com.nami.api.modules.base.cmd.run.RUN_List;
 import com.nami.api.modules.base.cmd.run.RUN_Reload;
 import com.nami.api.modules.base.cmd.run.RUN_Toggle;

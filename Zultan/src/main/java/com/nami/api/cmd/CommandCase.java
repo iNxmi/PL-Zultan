@@ -8,11 +8,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+import com.nami.api.cmd.check.ByteCheck;
 import com.nami.api.cmd.check.Check;
 import com.nami.api.cmd.check.CheckResponse;
 import com.nami.api.cmd.check.DoubleCheck;
+import com.nami.api.cmd.check.FloatCheck;
+import com.nami.api.cmd.check.IntegerCheck;
 import com.nami.api.cmd.check.LongCheck;
 import com.nami.api.cmd.check.PlayerCheck;
+import com.nami.api.cmd.check.ShortCheck;
 import com.nami.api.cmd.check.StringCheck;
 import com.nami.api.cmd.response.Response;
 import com.nami.api.sys.APIModule;
@@ -45,7 +49,7 @@ public class CommandCase {
 		if (sender instanceof ConsoleCommandSender && scope == SenderScope.PLAYER && scope != SenderScope.BOTH)
 			return Response.NOT_PLAYER;
 
-		if (!sender.hasPermission(permission) || !sender.hasPermission("*"))
+		if (!(sender.hasPermission(permission) || sender.hasPermission("*")))
 			return Response.NO_PERM;
 
 		for (int i = 0; i < args.length; i++)
@@ -60,8 +64,9 @@ public class CommandCase {
 	}
 
 	public enum Argument {
-		STRING("%string", new StringCheck()), LONG("%long", new LongCheck()), DOUBLE("%double", new DoubleCheck()),
-		PLAYER("%player", new PlayerCheck());
+		BYTE("%byte", new ByteCheck()), SHORT("%short", new ShortCheck()), INETEGR("%integer", new IntegerCheck()),
+		LONG("%long", new LongCheck()), FLOAT("%float", new FloatCheck()), DOUBLE("%double", new DoubleCheck()),
+		STRING("%string", new StringCheck()), PLAYER("%player", new PlayerCheck());
 
 		private String prefix;
 		private Check check;
@@ -92,6 +97,11 @@ public class CommandCase {
 			for (Argument a : values())
 				lookup.put(a.getPrefix(), a);
 		}
+	}
+
+	public enum SenderScope {
+
+		PLAYER(), CONSOLE(), BOTH();
 
 	}
 

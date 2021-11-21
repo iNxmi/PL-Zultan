@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.nami.api.cmd.APICommandExecutor;
+import com.nami.api.cmd.response.ErrorResponse;
 import com.nami.api.cmd.response.Response;
 import com.nami.api.sys.APIModule;
 import com.nami.api.util.DataContainer;
@@ -25,6 +26,9 @@ public class RUN_Tp_Other implements APICommandExecutor {
 
 	@Override
 	public Response onCommand(APIModule module, CommandSender sender, Command command, String label, String[] args) {
+		if (!data.getData().containsKey(args[1]))
+			return new ErrorResponse("Entry '" + args[1] + "' does not exist!");
+
 		Map<String, Integer> rawData = data.getData().get(args[1]);
 
 		Player t = Bukkit.getPlayer(args[2]);

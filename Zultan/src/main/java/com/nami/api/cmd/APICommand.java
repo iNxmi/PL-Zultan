@@ -3,10 +3,12 @@ package com.nami.api.cmd;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import com.nami.api.cmd.CommandCase.SenderScope;
 import com.nami.api.cmd.response.Response;
 import com.nami.api.sys.APIModule;
 import com.nami.api.util.MessageType;
@@ -21,7 +23,8 @@ public abstract class APICommand implements CommandExecutor {
 	public APICommand(APIModule module, String name) {
 		this.module = module;
 		this.name = name;
-		this.cases = new ArrayList<CommandCase>();
+
+		this.cases = new ArrayList<>();
 	}
 
 	public void addCase(APICommandExecutor runnable, String args, String permission, SenderScope scope) {
@@ -31,24 +34,25 @@ public abstract class APICommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (module.isEnabled()) {
-			Response code = Response.NONE;
-
-			if (command.getName().equalsIgnoreCase(name))
-				for (CommandCase cc : cases) {
-					code = cc.execute(module, sender, command, label, args);
-					if (code != Response.NONE)
-						break;
-				}
-
-			if (code == Response.NONE)
-				code = Response.SYNTAX_ERROR;
-
-			if (code != Response.SUCCESS)
-				Plugin.logger.send(code.getMessageType(), sender, code.getMessage());
-		} else {
+		if (!module.isEnabled()) {
 			Plugin.logger.send(MessageType.ERROR, sender, "Module '" + module.getID() + "' is not enabled!");
+			return true;
 		}
+
+		Response code = Response.NONE;
+		if (command.getName().equalsIgnoreCase(label)
+				|| Bukkit.getPluginCommand(name).getAliases().contains(label.toLowerCase()))
+			for (CommandCase cc : cases) {
+				code = cc.execute(module, sender, command, label, args);
+				if (code != Response.NONE)
+					break;
+			}
+
+		if (code == Response.NONE)
+			code = Response.SYNTAX_ERROR;
+
+		if (code != Response.SUCCESS)
+			Plugin.logger.send(code.getMessageType(), sender, code.getMessage());
 		return true;
 	}
 

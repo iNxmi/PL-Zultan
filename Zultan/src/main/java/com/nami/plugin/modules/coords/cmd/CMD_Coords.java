@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.nami.api.cmd.APICommand;
-import com.nami.api.cmd.SenderScope;
+import com.nami.api.cmd.CommandCase.SenderScope;
 import com.nami.api.sys.APIModule;
 import com.nami.api.util.DataContainer;
 import com.nami.plugin.modules.coords.cmd.run.RUN_Clear;

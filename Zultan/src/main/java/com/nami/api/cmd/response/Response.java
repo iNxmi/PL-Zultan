@@ -15,8 +15,19 @@ public abstract class Response {
 	public static final Response TARGET_NOT_ONLINE = new ErrorResponse("This player is not online!");
 	public static final Response TARGET_NOT_PLAYER = new ErrorResponse("You cant target yourself!");
 	public static final Response INTERNAL_ERROR = new ErrorResponse("An internal error occurred!");
-	public static final Response NOT_LONG = new ErrorResponse("You have to enter a long!");
-	public static final Response NOT_DOUBLE = new ErrorResponse("You have to enter a double!");
+
+	public static final Response NOT_BYTE = new ErrorResponse(
+			"You have to enter a byte! (" + Byte.MIN_VALUE + " - " + Byte.MAX_VALUE + ")");
+	public static final Response NOT_SHORT = new ErrorResponse(
+			"You have to enter a short! (" + Short.MIN_VALUE + " - " + Short.MAX_VALUE + ")");
+	public static final Response NOT_INTEGER = new ErrorResponse(
+			"You have to enter a integer! (" + Integer.MIN_VALUE + " - " + Integer.MAX_VALUE + ")");
+	public static final Response NOT_LONG = new ErrorResponse(
+			"You have to enter a long! (" + Long.MIN_VALUE + " - " + Long.MAX_VALUE + ")");
+	public static final Response NOT_FLOAT = new ErrorResponse(
+			"You have to enter a float! (" + Float.MIN_VALUE + " - " + Float.MAX_VALUE + ")");
+	public static final Response NOT_DOUBLE = new ErrorResponse(
+			"You have to enter a double! (" + Double.MIN_VALUE + " - " + Double.MAX_VALUE + ")");
 
 	private String message;
 	private MessageType type;

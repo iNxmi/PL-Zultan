@@ -6,8 +6,6 @@ import com.nami.plugin.modules.gamemode.MDL_Gamemode;
 
 public class Plugin extends APIPlugin {
 
-	// next 010
-
 	public Plugin() {
 		super("Zultan");
 
