@@ -19,7 +19,6 @@ import com.nami.api.cmd.check.PlayerCheck;
 import com.nami.api.cmd.check.ShortCheck;
 import com.nami.api.cmd.check.StringCheck;
 import com.nami.api.cmd.response.Response;
-import com.nami.api.sys.APIModule;
 
 public class CommandCase {
 
@@ -35,7 +34,7 @@ public class CommandCase {
 		this.scope = scope;
 	}
 
-	public Response execute(APIModule module, CommandSender sender, Command cmd, String label, String[] args) {
+	public Response execute(APICommand apiCommand, CommandSender sender, Command cmd, String label, String[] args) {
 		if (this.args.length != args.length)
 			return Response.NONE;
 
@@ -55,12 +54,12 @@ public class CommandCase {
 		for (int i = 0; i < args.length; i++)
 			if (Argument.getLookup().containsKey(this.args[i])) {
 				Argument arg = Argument.getArgument(this.args[i]);
-				CheckResponse response = arg.check(module, sender, cmd, label, args[i]);
+				CheckResponse response = arg.check(apiCommand, sender, cmd, label, args[i]);
 				if (response.shouldReturn())
 					return response.getResponse();
 			}
 
-		return executor.onCommand(module, sender, cmd, label, args);
+		return executor.onCommand(apiCommand, sender, cmd, label, args);
 	}
 
 	public enum Argument {
@@ -81,8 +80,8 @@ public class CommandCase {
 			return prefix;
 		}
 
-		public CheckResponse check(APIModule module, CommandSender sender, Command cmd, String label, String arg) {
-			return check.check(module, sender, cmd, label, arg);
+		public CheckResponse check(APICommand apiCommand, CommandSender sender, Command cmd, String label, String arg) {
+			return check.check(apiCommand.getModule(), sender, cmd, label, arg);
 		}
 
 		public static Argument getArgument(String prefix) {
@@ -100,9 +99,11 @@ public class CommandCase {
 	}
 
 	public enum SenderScope {
-
 		PLAYER(), CONSOLE(), BOTH();
+	}
 
+	public String getPermission() {
+		return permission;
 	}
 
 }

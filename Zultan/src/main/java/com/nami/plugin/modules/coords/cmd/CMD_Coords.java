@@ -54,8 +54,7 @@ public class CMD_Coords extends APICommand {
 		addCase(new RUN_Tp_Other(data), "tp %string %player", "zultan.coords.tp.other", SenderScope.BOTH);
 
 		addCase(new RUN_Add(data), "add %string", "zultan.coords.add", SenderScope.PLAYER);
-		addCase(new RUN_Add_XYZD(data), "add %string %long %long %long %long", "zultan.coords.add",
-				SenderScope.BOTH);
+		addCase(new RUN_Add_XYZD(data), "add %string %long %long %long %long", "zultan.coords.add", SenderScope.BOTH);
 
 		addCase(new RUN_Update(data), "update %string", "zultan.coords.update", SenderScope.PLAYER);
 		addCase(new RUN_Update_XYZD(data), "update %string %long %long %long %long", "zultan.coords.update",

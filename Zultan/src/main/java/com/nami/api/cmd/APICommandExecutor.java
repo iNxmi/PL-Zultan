@@ -4,10 +4,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import com.nami.api.cmd.response.Response;
-import com.nami.api.sys.APIModule;
 
 public interface APICommandExecutor {
 
-	public Response onCommand(APIModule module, CommandSender sender, Command command, String label, String[] args);
+	public Response onCommand(APICommand apiCommand, CommandSender sender, Command command, String label,
+			String[] args);
 
 }

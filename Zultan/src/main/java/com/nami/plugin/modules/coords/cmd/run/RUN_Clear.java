@@ -6,9 +6,9 @@ import java.util.Map;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import com.nami.api.cmd.APICommand;
 import com.nami.api.cmd.APICommandExecutor;
 import com.nami.api.cmd.response.Response;
-import com.nami.api.sys.APIModule;
 import com.nami.api.util.DataContainer;
 import com.nami.api.util.MessageType;
 import com.nami.plugin.Plugin;
@@ -22,7 +22,8 @@ public class RUN_Clear implements APICommandExecutor {
 	}
 
 	@Override
-	public Response onCommand(APIModule module, CommandSender sender, Command command, String label, String[] args) {
+	public Response onCommand(APICommand apiCommand, CommandSender sender, Command command, String label,
+			String[] args) {
 		data.getData().clear();
 
 		try {

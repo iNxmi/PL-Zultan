@@ -29,6 +29,9 @@ public abstract class Response {
 	public static final Response NOT_DOUBLE = new ErrorResponse(
 			"You have to enter a double! (" + Double.MIN_VALUE + " - " + Double.MAX_VALUE + ")");
 
+	public static final Response COMMING_SOON = new ErrorResponse(
+			"This feautre has not been implemented yet! comming soon!");
+
 	private String message;
 	private MessageType type;
 
