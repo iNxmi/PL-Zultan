@@ -14,7 +14,7 @@ public class MDL_Coords extends APIModule {
 	private List<UUID> players;
 
 	public MDL_Coords(APIPlugin plugin) {
-		super(plugin, "coords");
+		super(plugin, "coords", false);
 
 		players = new ArrayList<>();
 

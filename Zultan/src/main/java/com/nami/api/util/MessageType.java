@@ -2,8 +2,8 @@ package com.nami.api.util;
 
 public enum MessageType {
 
-	NONE("%"), INFO("[§3INFO§r] §3%"), WARNING("[§eWARNING§r] §e%"), ERROR("[§cERROR§r] §c%"), DEBUG("[§dDEBUG§r] §d%"),
-	EASTEREGG("[§6EASTEREGG§r] §6%");
+	NONE("%"), INFO("[§3INFO§r] §3%"), WARNING("[§eWARNING§r] §e%"), ERROR("[§cERROR§r] §c%"),
+	FATAL("[§c§lFATAL§r] §c%"), DEBUG("[§dDEBUG§r] §d%"), EASTEREGG("[§6EASTEREGG§r] §6%");
 
 	private String format;
 

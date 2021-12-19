@@ -18,9 +18,10 @@ public abstract class APIModule {
 	private List<APICommand> commands;
 	private List<APIEvent> events;
 
-	public APIModule(APIPlugin plugin, String id) {
+	public APIModule(APIPlugin plugin, String id, boolean enabled) {
 		this.plugin = plugin;
 		this.id = id.toLowerCase();
+		this.enabled = enabled;
 
 		this.folder = new File(plugin.getDataFolder().getAbsolutePath().concat("/").concat(this.id));
 

@@ -7,7 +7,7 @@ import com.nami.plugin.modules.gamemode.cmd.CMD_Gamemode;
 public class MDL_Gamemode extends APIModule {
 
 	public MDL_Gamemode(APIPlugin plugin) {
-		super(plugin, "gamemode");
+		super(plugin, "gamemode", false);
 
 		addCommand(new CMD_Gamemode(this));
 	}
