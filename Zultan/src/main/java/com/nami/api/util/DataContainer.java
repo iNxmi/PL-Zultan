@@ -1,11 +1,8 @@
 package com.nami.api.util;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,16 +27,7 @@ public class DataContainer<K, V> {
 		if (!file.exists())
 			return;
 
-		BufferedReader br = new BufferedReader(new FileReader(file));
-
-		StringBuilder sb = new StringBuilder();
-		String line;
-		while ((line = br.readLine()) != null)
-			sb.append(line);
-		br.close();
-
-		String json = sb.toString();
-		data = mapper.readValue(json, new TypeReference<Map<K, V>>() {
+		data = mapper.readValue(Files.readAllBytes(file.toPath()), new TypeReference<Map<K, V>>() {
 		});
 	}
 
@@ -47,12 +35,7 @@ public class DataContainer<K, V> {
 		if (!file.exists())
 			file.createNewFile();
 
-		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-
-		String json = mapper.writer().withDefaultPrettyPrinter().writeValueAsString(data);
-		bw.write(json);
-		bw.flush();
-		bw.close();
+		mapper.writerWithDefaultPrettyPrinter().writeValue(file, data);
 	}
 
 	public File getFile() {
