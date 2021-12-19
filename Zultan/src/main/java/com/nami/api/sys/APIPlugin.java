@@ -22,6 +22,8 @@ public abstract class APIPlugin extends JavaPlugin {
 
 	public static Logger logger;
 
+	private ObjectMapper mapper = new ObjectMapper();
+
 	public APIPlugin(String name) {
 		this.name = name;
 		this.folder = new File(getDataFolder().getAbsolutePath().concat("/").concat(getDescription().getVersion()));
@@ -40,57 +42,39 @@ public abstract class APIPlugin extends JavaPlugin {
 
 		loadModules();
 
-		enableModules(em());
-	}
-
-	private Map<String, Boolean> em() {
-		if (!enabled.exists())
-			try {
-				enabled.createNewFile();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-
-		ObjectMapper om = new ObjectMapper();
-
 		try {
-			byte[] data = Files.readAllBytes(enabled.toPath());
-			if (data.length <= 0) {
-				Map<String, Boolean> map = new HashMap<>();
-				for (Map.Entry<String, APIModule> e : modules.entrySet())
-					map.put(e.getKey(), e.getValue().isEnabled());
-
-				om.writerWithDefaultPrettyPrinter().writeValue(enabled, map);
-			}
-		} catch (Exception e) {
+			enableModules(em());
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
 
-		Map<String, Boolean> toEnable = null;
-		try {
-			toEnable = om.readValue(Files.readAllBytes(enabled.toPath()),
-					new TypeReference<HashMap<String, Boolean>>() {
-					});
-		} catch (Exception e) {
+	private Map<String, Boolean> em() throws IOException {
+		if (!enabled.exists())
+			enabled.createNewFile();
+
+		if (!jsonSyntaxCorrect(enabled) || Files.readAllBytes(enabled.toPath()).length <= 0) {
 			Map<String, Boolean> map = new HashMap<>();
 			for (Map.Entry<String, APIModule> e1 : modules.entrySet())
 				map.put(e1.getKey(), e1.getValue().isEnabled());
 
-			try {
-				om.writerWithDefaultPrettyPrinter().writeValue(enabled, map);
-			} catch (IOException e2) {
-				e2.printStackTrace();
-			}
+			mapper.writerWithDefaultPrettyPrinter().writeValue(enabled, map);
 		}
 
-		try {
-			toEnable = om.readValue(Files.readAllBytes(enabled.toPath()),
-					new TypeReference<HashMap<String, Boolean>>() {
-					});
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Map<String, Boolean> toEnable = mapper.readValue(Files.readAllBytes(enabled.toPath()),
+				new TypeReference<HashMap<String, Boolean>>() {
+				});
+
 		return toEnable;
+	}
+
+	private boolean jsonSyntaxCorrect(File file) {
+		try {
+			mapper.readTree(file);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override
