@@ -7,11 +7,11 @@ import com.nami.api.modules.base.cmd.run.RUN_Reload;
 import com.nami.api.modules.base.cmd.run.RUN_Toggle;
 import com.nami.api.sys.APIModule;
 
-public class CMD_modules extends APICommand {
+public class CMD_Modules extends APICommand {
 
-	public CMD_modules(APIModule module) {
+	public CMD_Modules(APIModule module) {
 		super(module, "modules");
-		
+
 		addCase(new RUN_List(), "list", "zultan.base.modules.list", SenderScope.BOTH);
 		addCase(new RUN_Toggle(), "toggle %string", "zultan.base.modules.toggle", SenderScope.BOTH);
 		addCase(new RUN_Reload(), "reload", "zultan.base.modules.reload", SenderScope.BOTH);

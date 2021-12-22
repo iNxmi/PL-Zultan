@@ -16,10 +16,10 @@ public class RUN_Help implements APICommandExecutor {
 	public Response onCommand(APICommand apiCommand, CommandSender sender, Command command, String label,
 			String[] args) {
 
-		for(CommandCase c : apiCommand.getCommandCases())
-			Plugin.logger.send(MessageType.NONE, sender, c.getPermission());
-		
-		return Response.COMMING_SOON;
+		for (CommandCase c : apiCommand.getCommandCases())
+			Plugin.logger.send(MessageType.NONE, sender, String.join(" ", c.getArgs()));
+
+		return Response.SUCCESS;
 	}
 
 }

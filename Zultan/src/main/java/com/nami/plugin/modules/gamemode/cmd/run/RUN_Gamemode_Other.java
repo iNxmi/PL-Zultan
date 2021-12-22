@@ -24,6 +24,8 @@ public class RUN_Gamemode_Other implements APICommandExecutor {
 		if (!(index >= 0 && index <= 3))
 			return new ErrorResponse("Gamemode number has to be in range 0-3!");
 
+		//TODO shit is deprecated!
+		@SuppressWarnings("deprecation")
 		GameMode gm = GameMode.getByValue(index);
 		t.setGameMode(gm);
 

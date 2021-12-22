@@ -12,3 +12,5 @@ commands:
       aliases: [c]
     gamemode:
       aliases: [gm]
+    chatutils:
+      aliases: [cu]

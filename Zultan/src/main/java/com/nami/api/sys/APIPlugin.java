@@ -8,9 +8,11 @@ import java.util.Map;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nami.api.modules.base.MDL_base;
+import com.nami.api.modules.base.MDL_Base;
 import com.nami.api.util.Logger;
 
 public abstract class APIPlugin extends JavaPlugin {
@@ -32,7 +34,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
 		logger = new Logger(name);
 
-		addModule(new MDL_base(this));
+		addModule(new MDL_Base(this));
 	}
 
 	@Override
@@ -43,23 +45,22 @@ public abstract class APIPlugin extends JavaPlugin {
 		loadModules();
 
 		try {
-			enableModules(em());
+			enableModules();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private Map<String, Boolean> em() throws IOException {
+	public void enableModules() throws IOException {
+		enableModules(loadToEnable());
+	}
+
+	private Map<String, Boolean> loadToEnable() throws IOException {
 		if (!enabled.exists())
 			enabled.createNewFile();
 
-		if (!jsonSyntaxCorrect(enabled) || Files.readAllBytes(enabled.toPath()).length <= 0) {
-			Map<String, Boolean> map = new HashMap<>();
-			for (Map.Entry<String, APIModule> e1 : modules.entrySet())
-				map.put(e1.getKey(), e1.getValue().isEnabled());
-
-			mapper.writerWithDefaultPrettyPrinter().writeValue(enabled, map);
-		}
+		if (!jsonSyntaxCorrect(enabled) || Files.readAllBytes(enabled.toPath()).length <= 0)
+			resetToEnable();
 
 		Map<String, Boolean> toEnable = mapper.readValue(Files.readAllBytes(enabled.toPath()),
 				new TypeReference<HashMap<String, Boolean>>() {
@@ -67,7 +68,15 @@ public abstract class APIPlugin extends JavaPlugin {
 
 		return toEnable;
 	}
+	
+	public void resetToEnable() throws StreamWriteException, DatabindException, IOException {
+		Map<String, Boolean> map = new HashMap<>();
+		for (Map.Entry<String, APIModule> e : modules.entrySet())
+			map.put(e.getKey(), e.getValue().isEnabled());
 
+		mapper.writerWithDefaultPrettyPrinter().writeValue(enabled, map);
+	}
+	
 	private boolean jsonSyntaxCorrect(File file) {
 		try {
 			mapper.readTree(file);
@@ -87,7 +96,6 @@ public abstract class APIPlugin extends JavaPlugin {
 			m.load();
 	}
 
-	// TODO Make shit work right
 	private void enableModules(Map<String, Boolean> toEnable) {
 		for (Map.Entry<String, Boolean> m : toEnable.entrySet())
 			modules.get(m.getKey()).setEnabled(m.getValue());

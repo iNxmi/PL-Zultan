@@ -106,4 +106,8 @@ public class CommandCase {
 		return permission;
 	}
 
+	public String[] getArgs() {
+		return args;
+	}
+
 }

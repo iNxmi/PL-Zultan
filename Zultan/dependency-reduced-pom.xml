@@ -4,7 +4,7 @@
   <groupId>com.nami</groupId>
   <artifactId>pl-zultan</artifactId>
   <name>Zultan</name>
-  <version>1.0.12-SNAPSHOT</version>
+  <version>1.0.13-SNAPSHOT</version>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <resources>
