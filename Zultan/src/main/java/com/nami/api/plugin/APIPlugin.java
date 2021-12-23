@@ -42,7 +42,7 @@ public abstract class APIPlugin extends JavaPlugin {
 			folder.mkdirs();
 
 		onPluginEnable();
-		
+
 		loadModules();
 
 		try {
@@ -54,6 +54,13 @@ public abstract class APIPlugin extends JavaPlugin {
 
 	public abstract void onPluginEnable();
 
+	@Override
+	public void onDisable() {
+		onPluginDisable();
+	}
+
+	public abstract void onPluginDisable();
+
 	public void enableModules() throws IOException {
 		enableModules(loadToEnable());
 	}
@@ -63,7 +70,7 @@ public abstract class APIPlugin extends JavaPlugin {
 			enabled.createNewFile();
 
 		if (!jsonSyntaxCorrect(enabled) || Files.readAllBytes(enabled.toPath()).length <= 0)
-			resetToEnable();
+			saveEnabled(State.DEFAULT);
 
 		Map<String, Boolean> toEnable = mapper.readValue(Files.readAllBytes(enabled.toPath()),
 				new TypeReference<HashMap<String, Boolean>>() {
@@ -72,10 +79,20 @@ public abstract class APIPlugin extends JavaPlugin {
 		return toEnable;
 	}
 
-	public void resetToEnable() throws StreamWriteException, DatabindException, IOException {
+	public void saveEnabled(State state) throws StreamWriteException, DatabindException, IOException {
 		Map<String, Boolean> map = new HashMap<>();
-		for (Map.Entry<String, APIModule> e : modules.entrySet())
-			map.put(e.getKey(), e.getValue().isEnabled());
+		for (Map.Entry<String, APIModule> e : modules.entrySet()) {
+			boolean value = false;
+			switch (state) {
+			case DEFAULT:
+				value = e.getValue().isDefaultEnabled();
+				break;
+			case CURRENT:
+				value = e.getValue().isEnabled();
+				break;
+			}
+			map.put(e.getKey(), value);
+		}
 
 		mapper.writerWithDefaultPrettyPrinter().writeValue(enabled, map);
 	}
@@ -89,12 +106,9 @@ public abstract class APIPlugin extends JavaPlugin {
 		}
 	}
 
-	@Override
-	public void onDisable() {
-		onPluginDisable();
+	public void addModule(APIModule module) {
+		modules.put(module.getID(), module);
 	}
-	
-	public abstract void onPluginDisable();
 
 	private void loadModules() {
 		for (APIModule m : modules.values())
@@ -106,16 +120,16 @@ public abstract class APIPlugin extends JavaPlugin {
 			modules.get(m.getKey()).setEnabled(m.getValue());
 	}
 
-	public void addModule(APIModule module) {
-		modules.put(module.getID(), module);
-	}
-
 	public Map<String, APIModule> getModules() {
 		return modules;
 	}
 
 	public File getFolder() {
 		return folder;
+	}
+
+	public enum State {
+		DEFAULT, CURRENT;
 	}
 
 }

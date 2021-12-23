@@ -13,16 +13,18 @@ public abstract class APIModule {
 	private APIPlugin plugin;
 	private String id;
 	private boolean enabled;
+	private boolean defaultEnabled;
 
 	private File folder;
 
 	private List<APICommand> commands;
 	private List<APIEvent> events;
 
-	public APIModule(APIPlugin plugin, String id, boolean enabled) {
+	public APIModule(APIPlugin plugin, String id, boolean defaultEnabled) {
 		this.plugin = plugin;
 		this.id = id.toLowerCase();
-		this.enabled = enabled;
+		this.defaultEnabled = defaultEnabled;
+		this.enabled = defaultEnabled;
 
 		this.folder = new File(plugin.getDataFolder().getAbsolutePath().concat("/").concat(this.id));
 
@@ -78,6 +80,10 @@ public abstract class APIModule {
 
 	public boolean isEnabled() {
 		return enabled;
+	}
+
+	public boolean isDefaultEnabled() {
+		return defaultEnabled;
 	}
 
 	public APIPlugin getPlugin() {

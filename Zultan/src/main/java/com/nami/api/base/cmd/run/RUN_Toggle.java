@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import com.nami.api.plugin.APIPlugin;
+import com.nami.api.plugin.APIPlugin.State;
 import com.nami.api.plugin.module.command.APICommand;
 import com.nami.api.plugin.module.command.APICommandExecutor;
 import com.nami.api.plugin.module.command.response.ErrorResponse;
@@ -28,7 +29,7 @@ public class RUN_Toggle implements APICommandExecutor {
 		plugin.getModules().get(moduleId).setEnabled(!plugin.getModules().get(moduleId).isEnabled());
 
 		try {
-			plugin.resetToEnable();
+			plugin.saveEnabled(State.CURRENT);
 			plugin.enableModules();
 		} catch (IOException e) {
 			e.printStackTrace();
