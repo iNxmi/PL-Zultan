@@ -1,7 +1,7 @@
 package com.nami.plugin.modules.gamemode;
 
-import com.nami.api.sys.APIModule;
-import com.nami.api.sys.APIPlugin;
+import com.nami.api.plugin.APIPlugin;
+import com.nami.api.plugin.module.APIModule;
 import com.nami.plugin.modules.gamemode.cmd.CMD_Gamemode;
 
 public class MDL_Gamemode extends APIModule {

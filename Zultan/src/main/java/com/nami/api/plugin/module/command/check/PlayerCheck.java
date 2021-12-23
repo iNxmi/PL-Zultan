@@ -1,12 +1,12 @@
-package com.nami.api.cmd.check;
+package com.nami.api.plugin.module.command.check;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.nami.api.cmd.response.Response;
-import com.nami.api.sys.APIModule;
+import com.nami.api.plugin.module.APIModule;
+import com.nami.api.plugin.module.command.response.Response;
 
 public class PlayerCheck implements Check {
 

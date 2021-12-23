@@ -1,12 +1,12 @@
-package com.nami.api.cmd.run;
+package com.nami.api.plugin.module.command.run;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import com.nami.api.cmd.APICommand;
-import com.nami.api.cmd.APICommandExecutor;
-import com.nami.api.cmd.CommandCase;
-import com.nami.api.cmd.response.Response;
+import com.nami.api.plugin.module.command.APICommand;
+import com.nami.api.plugin.module.command.APICommandExecutor;
+import com.nami.api.plugin.module.command.CommandCase;
+import com.nami.api.plugin.module.command.response.Response;
 import com.nami.api.util.MessageType;
 import com.nami.plugin.Plugin;
 

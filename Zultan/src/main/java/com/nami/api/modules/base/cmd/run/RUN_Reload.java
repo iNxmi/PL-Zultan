@@ -5,9 +5,9 @@ import java.io.IOException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import com.nami.api.cmd.APICommand;
-import com.nami.api.cmd.APICommandExecutor;
-import com.nami.api.cmd.response.Response;
+import com.nami.api.plugin.module.command.APICommand;
+import com.nami.api.plugin.module.command.APICommandExecutor;
+import com.nami.api.plugin.module.command.response.Response;
 
 public class RUN_Reload implements APICommandExecutor {
 

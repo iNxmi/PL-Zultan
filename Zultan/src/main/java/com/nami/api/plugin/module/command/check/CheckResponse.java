@@ -1,6 +1,6 @@
-package com.nami.api.cmd.check;
+package com.nami.api.plugin.module.command.check;
 
-import com.nami.api.cmd.response.Response;
+import com.nami.api.plugin.module.command.response.Response;
 
 public class CheckResponse {
 

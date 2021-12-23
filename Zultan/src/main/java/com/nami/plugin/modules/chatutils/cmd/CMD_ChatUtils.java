@@ -1,8 +1,8 @@
 package com.nami.plugin.modules.chatutils.cmd;
 
-import com.nami.api.cmd.APICommand;
-import com.nami.api.cmd.CommandCase.SenderScope;
-import com.nami.api.sys.APIModule;
+import com.nami.api.plugin.module.APIModule;
+import com.nami.api.plugin.module.command.APICommand;
+import com.nami.api.plugin.module.command.CommandCase.SenderScope;
 import com.nami.plugin.modules.chatutils.cmd.run.RUN_Clear;
 
 public class CMD_ChatUtils extends APICommand {

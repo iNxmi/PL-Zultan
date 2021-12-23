@@ -1,11 +1,12 @@
-package com.nami.api.sys;
+package com.nami.api.plugin.module;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nami.api.cmd.APICommand;
-import com.nami.api.evt.APIEvent;
+import com.nami.api.plugin.APIPlugin;
+import com.nami.api.plugin.module.command.APICommand;
+import com.nami.api.plugin.module.event.APIEvent;
 
 public abstract class APIModule {
 

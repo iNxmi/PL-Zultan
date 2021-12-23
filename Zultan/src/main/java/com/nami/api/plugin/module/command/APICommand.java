@@ -1,4 +1,4 @@
-package com.nami.api.cmd;
+package com.nami.api.plugin.module.command;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import com.nami.api.cmd.CommandCase.SenderScope;
-import com.nami.api.cmd.response.Response;
-import com.nami.api.cmd.run.RUN_Help;
-import com.nami.api.sys.APIModule;
+import com.nami.api.plugin.module.APIModule;
+import com.nami.api.plugin.module.command.CommandCase.SenderScope;
+import com.nami.api.plugin.module.command.response.Response;
+import com.nami.api.plugin.module.command.run.RUN_Help;
 import com.nami.api.util.MessageType;
 import com.nami.plugin.Plugin;
 

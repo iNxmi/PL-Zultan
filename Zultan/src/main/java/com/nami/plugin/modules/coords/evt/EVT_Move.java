@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import com.nami.api.evt.APIEvent;
-import com.nami.api.sys.APIModule;
+import com.nami.api.plugin.module.APIModule;
+import com.nami.api.plugin.module.event.APIEvent;
 import com.nami.plugin.Plugin;
 
 public class EVT_Move extends APIEvent {

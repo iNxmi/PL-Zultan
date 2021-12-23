@@ -1,4 +1,4 @@
-package com.nami.api.cmd.response;
+package com.nami.api.plugin.module.command.response;
 
 public class NullResponse extends Response {
 

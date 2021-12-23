@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.nami.api.cmd.APICommand;
-import com.nami.api.cmd.CommandCase.SenderScope;
-import com.nami.api.sys.APIModule;
+import com.nami.api.plugin.module.APIModule;
+import com.nami.api.plugin.module.command.APICommand;
+import com.nami.api.plugin.module.command.CommandCase.SenderScope;
 import com.nami.api.util.DataContainer;
 import com.nami.plugin.modules.coords.cmd.run.RUN_Clear;
 import com.nami.plugin.modules.coords.cmd.run.RUN_List;

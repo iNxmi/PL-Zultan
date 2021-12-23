@@ -1,9 +1,9 @@
-package com.nami.api.cmd.check;
+package com.nami.api.plugin.module.command.check;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import com.nami.api.sys.APIModule;
+import com.nami.api.plugin.module.APIModule;
 
 public interface Check {
 

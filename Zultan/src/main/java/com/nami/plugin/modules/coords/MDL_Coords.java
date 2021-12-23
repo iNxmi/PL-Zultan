@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.nami.api.sys.APIModule;
-import com.nami.api.sys.APIPlugin;
+import com.nami.api.plugin.APIPlugin;
+import com.nami.api.plugin.module.APIModule;
 import com.nami.plugin.modules.coords.cmd.CMD_Coords;
 import com.nami.plugin.modules.coords.evt.EVT_Move;
 

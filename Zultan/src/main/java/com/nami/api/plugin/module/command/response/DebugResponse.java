@@ -1,4 +1,4 @@
-package com.nami.api.cmd.response;
+package com.nami.api.plugin.module.command.response;
 
 import com.nami.api.util.MessageType;
 

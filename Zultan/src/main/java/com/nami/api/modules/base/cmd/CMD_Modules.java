@@ -1,11 +1,11 @@
 package com.nami.api.modules.base.cmd;
 
-import com.nami.api.cmd.APICommand;
-import com.nami.api.cmd.CommandCase.SenderScope;
 import com.nami.api.modules.base.cmd.run.RUN_List;
 import com.nami.api.modules.base.cmd.run.RUN_Reload;
 import com.nami.api.modules.base.cmd.run.RUN_Toggle;
-import com.nami.api.sys.APIModule;
+import com.nami.api.plugin.module.APIModule;
+import com.nami.api.plugin.module.command.APICommand;
+import com.nami.api.plugin.module.command.CommandCase.SenderScope;
 
 public class CMD_Modules extends APICommand {
 

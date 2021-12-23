@@ -1,4 +1,4 @@
-package com.nami.api.sys;
+package com.nami.api.plugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nami.api.modules.base.MDL_Base;
+import com.nami.api.plugin.module.APIModule;
 import com.nami.api.util.Logger;
 
 public abstract class APIPlugin extends JavaPlugin {

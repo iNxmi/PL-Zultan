@@ -5,12 +5,11 @@ import java.io.IOException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import com.nami.api.cmd.APICommand;
-import com.nami.api.cmd.APICommandExecutor;
-import com.nami.api.cmd.response.ErrorResponse;
-import com.nami.api.cmd.response.Response;
-import com.nami.api.sys.APIModule;
-import com.nami.api.sys.APIPlugin;
+import com.nami.api.plugin.APIPlugin;
+import com.nami.api.plugin.module.command.APICommand;
+import com.nami.api.plugin.module.command.APICommandExecutor;
+import com.nami.api.plugin.module.command.response.ErrorResponse;
+import com.nami.api.plugin.module.command.response.Response;
 import com.nami.api.util.MessageType;
 import com.nami.plugin.Plugin;
 

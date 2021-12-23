@@ -1,9 +1,9 @@
-package com.nami.api.cmd;
+package com.nami.api.plugin.module.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import com.nami.api.cmd.response.Response;
+import com.nami.api.plugin.module.command.response.Response;
 
 public interface APICommandExecutor {
 

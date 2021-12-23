@@ -1,4 +1,4 @@
-package com.nami.api.cmd;
+package com.nami.api.plugin.module.command;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,17 +8,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import com.nami.api.cmd.check.ByteCheck;
-import com.nami.api.cmd.check.Check;
-import com.nami.api.cmd.check.CheckResponse;
-import com.nami.api.cmd.check.DoubleCheck;
-import com.nami.api.cmd.check.FloatCheck;
-import com.nami.api.cmd.check.IntegerCheck;
-import com.nami.api.cmd.check.LongCheck;
-import com.nami.api.cmd.check.PlayerCheck;
-import com.nami.api.cmd.check.ShortCheck;
-import com.nami.api.cmd.check.StringCheck;
-import com.nami.api.cmd.response.Response;
+import com.nami.api.plugin.module.command.check.ByteCheck;
+import com.nami.api.plugin.module.command.check.Check;
+import com.nami.api.plugin.module.command.check.CheckResponse;
+import com.nami.api.plugin.module.command.check.DoubleCheck;
+import com.nami.api.plugin.module.command.check.FloatCheck;
+import com.nami.api.plugin.module.command.check.IntegerCheck;
+import com.nami.api.plugin.module.command.check.LongCheck;
+import com.nami.api.plugin.module.command.check.PlayerCheck;
+import com.nami.api.plugin.module.command.check.ShortCheck;
+import com.nami.api.plugin.module.command.check.StringCheck;
+import com.nami.api.plugin.module.command.response.Response;
 
 public class CommandCase {
 
