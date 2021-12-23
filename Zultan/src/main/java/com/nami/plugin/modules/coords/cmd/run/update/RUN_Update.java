@@ -25,7 +25,6 @@ public class RUN_Update implements APICommandExecutor {
 		this.data = data;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public Response onCommand(APICommand apiCommand, CommandSender sender, Command command, String label,
 			String[] args) {
@@ -35,7 +34,6 @@ public class RUN_Update implements APICommandExecutor {
 		Player p = (Player) sender;
 		Location loc = p.getLocation();
 
-		// TODO shit is deprecated
 		Map<String, Integer> rawData = new HashMap<>();
 		rawData.put("x", loc.getBlockX());
 		rawData.put("y", loc.getBlockY());

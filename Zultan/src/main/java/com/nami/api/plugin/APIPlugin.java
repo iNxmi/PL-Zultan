@@ -12,13 +12,12 @@ import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nami.api.modules.base.MDL_Base;
+import com.nami.api.base.MDL_Base;
 import com.nami.api.plugin.module.APIModule;
 import com.nami.api.util.Logger;
 
 public abstract class APIPlugin extends JavaPlugin {
 
-	private String name;
 	private File folder;
 	private File enabled;
 	private Map<String, APIModule> modules;
@@ -27,13 +26,12 @@ public abstract class APIPlugin extends JavaPlugin {
 
 	private ObjectMapper mapper = new ObjectMapper();
 
-	public APIPlugin(String name) {
-		this.name = name;
+	public APIPlugin() {
 		this.folder = new File(getDataFolder().getAbsolutePath().concat("/").concat(getDescription().getVersion()));
 		this.enabled = new File(folder.getAbsolutePath().concat("/").concat("enabled.json"));
 		this.modules = new HashMap<>();
 
-		logger = new Logger(name);
+		logger = new Logger(getDescription().getName());
 
 		addModule(new MDL_Base(this));
 	}
@@ -43,6 +41,8 @@ public abstract class APIPlugin extends JavaPlugin {
 		if (!folder.exists())
 			folder.mkdirs();
 
+		onPluginEnable();
+		
 		loadModules();
 
 		try {
@@ -51,6 +51,8 @@ public abstract class APIPlugin extends JavaPlugin {
 			e.printStackTrace();
 		}
 	}
+
+	public abstract void onPluginEnable();
 
 	public void enableModules() throws IOException {
 		enableModules(loadToEnable());
@@ -69,7 +71,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
 		return toEnable;
 	}
-	
+
 	public void resetToEnable() throws StreamWriteException, DatabindException, IOException {
 		Map<String, Boolean> map = new HashMap<>();
 		for (Map.Entry<String, APIModule> e : modules.entrySet())
@@ -77,7 +79,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
 		mapper.writerWithDefaultPrettyPrinter().writeValue(enabled, map);
 	}
-	
+
 	private boolean jsonSyntaxCorrect(File file) {
 		try {
 			mapper.readTree(file);
@@ -89,8 +91,10 @@ public abstract class APIPlugin extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-
+		onPluginDisable();
 	}
+	
+	public abstract void onPluginDisable();
 
 	private void loadModules() {
 		for (APIModule m : modules.values())
@@ -112,10 +116,6 @@ public abstract class APIPlugin extends JavaPlugin {
 
 	public File getFolder() {
 		return folder;
-	}
-
-	public String getPluginName() {
-		return name;
 	}
 
 }

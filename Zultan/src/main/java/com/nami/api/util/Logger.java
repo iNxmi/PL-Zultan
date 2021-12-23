@@ -31,8 +31,6 @@ public class Logger {
 			send(type, p, message);
 	}
 
-	// TODO shit is deprecated
-	@SuppressWarnings("deprecation")
 	public void sendHotbar(Player player, Object message) {
 		player.sendActionBar(TextComponent.fromLegacyText(message.toString()));
 	}

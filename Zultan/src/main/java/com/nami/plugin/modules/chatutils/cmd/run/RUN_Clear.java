@@ -12,8 +12,6 @@ import com.nami.plugin.Plugin;
 
 public class RUN_Clear implements APICommandExecutor {
 
-	// TODO shit is deprecated!!
-	@SuppressWarnings("deprecation")
 	@Override
 	public Response onCommand(APICommand apiCommand, CommandSender sender, Command command, String label,
 			String[] args) {
