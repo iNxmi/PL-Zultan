@@ -21,14 +21,13 @@ public abstract class APIPlugin extends JavaPlugin {
 	private File folder;
 	private File enabled;
 	private Map<String, APIModule> modules;
-
-	public static Logger logger;
-
 	private ObjectMapper mapper = new ObjectMapper();
+	
+	public static Logger logger;
 
 	public APIPlugin() {
 		this.folder = new File(getDataFolder().getAbsolutePath().concat("/").concat(getDescription().getVersion()));
-		this.enabled = new File(folder.getAbsolutePath().concat("/").concat("enabled.json"));
+		this.enabled = new File(folder.getAbsolutePath().concat("/enabled.json"));
 		this.modules = new HashMap<>();
 
 		logger = new Logger(getDescription().getName());
@@ -111,13 +110,11 @@ public abstract class APIPlugin extends JavaPlugin {
 	}
 
 	private void loadModules() {
-		for (APIModule m : modules.values())
-			m.load();
+		modules.forEach((k, v) -> v.load());
 	}
 
 	private void enableModules(Map<String, Boolean> toEnable) {
-		for (Map.Entry<String, Boolean> m : toEnable.entrySet())
-			modules.get(m.getKey()).setEnabled(m.getValue());
+		toEnable.forEach((k, v) -> modules.get(k).setEnabled(v));
 	}
 
 	public Map<String, APIModule> getModules() {

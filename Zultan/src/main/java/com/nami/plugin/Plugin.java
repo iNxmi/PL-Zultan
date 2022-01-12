@@ -6,7 +6,7 @@ import com.nami.plugin.modules.coords.MDL_Coords;
 import com.nami.plugin.modules.gamemode.MDL_Gamemode;
 
 public class Plugin extends APIPlugin {
-	
+
 	@Override
 	public void onPluginEnable() {
 		addModule(new MDL_Coords(this));
@@ -16,7 +16,7 @@ public class Plugin extends APIPlugin {
 
 	@Override
 	public void onPluginDisable() {
-		
+
 	}
 
 }

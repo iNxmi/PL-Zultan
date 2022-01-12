@@ -1,16 +1,16 @@
 name: '${project.name}'
 version: '${project.version}'
-author: Nami
-main: com.nami.plugin.Plugin
+author: '${author}'
+main: '${mainClass}'
 
-api-version: 1.17
+api-version: '${apiVersion}'
 
 commands:
-    modules:
+   modules:
       aliases: [mdl]
-    coords:
+   coords:
       aliases: [c]
-    gamemode:
+   gamemode:
       aliases: [gm]
-    chatutils:
+   chatutils:
       aliases: [cu]
